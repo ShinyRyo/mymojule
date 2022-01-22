@@ -86,7 +86,7 @@ class SoftmaxWithLoss:
         
         return dx
 
-class Softmax(Layer):
+class Softmax():
   """Softmax activation function.
   Example without mask:
   >>> inp = np.asarray([1., 2., 1.])
