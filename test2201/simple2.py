@@ -142,6 +142,5 @@ class Softmax():
     base_config = super(Softmax, self).get_config()
     return dict(list(base_config.items()) + list(config.items()))
 
-  @tf_utils.shape_type_conversion
   def compute_output_shape(self, input_shape):
     return input_shape
