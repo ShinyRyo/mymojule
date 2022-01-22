@@ -76,7 +76,7 @@ class SoftmaxWithLoss:
         return self.loss
 
     def backward(self, dout=1):
-        batch_size = self.t.shape[0]
+        #batch_size = self.t.shape[0]
         if self.t.size == self.y.size: # 教師データがone-hot-vectorの場合
             dx = (self.y - self.t) / batch_size
         else:
