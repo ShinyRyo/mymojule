@@ -3,6 +3,11 @@ import pandas as pd
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 
+def data_gen():
+    Xin = pd.DataFrame(data=np.array([[0,0],[0,1],[1,0],[1,1]]),
+                  columns=['x1', 'x2'])
+    return Xin
+
 def perceptron(x1, x2, w1, w2, b):
     a = w1 * x1 + w2 * x2 + b
     return a
