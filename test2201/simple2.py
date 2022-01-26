@@ -7,8 +7,9 @@ from collections import OrderedDict
 def data_gen():
     Xin = pd.DataFrame(data=np.array([[0,0],[0,1],[1,0],[1,1]]),
                   columns=['x1', 'x2'])
-    return Xin
-    
+    t_label = np.array([0],[0],[0],[1])
+    return Xin, t
+
 class perceptron:
     # パラメータの初期化
     def __init__(self, input_size, output_size):
