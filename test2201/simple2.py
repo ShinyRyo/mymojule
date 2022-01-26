@@ -8,7 +8,7 @@ def data_gen():
     Xin = pd.DataFrame(data=np.array([[0,0],[0,1],[1,0],[1,1]]),
                   columns=['x1', 'x2'])
     t_label = np.array([[0],[0],[0],[1]])
-    return Xin, t
+    return Xin, t_label
 
 class perceptron:
     # パラメータの初期化
