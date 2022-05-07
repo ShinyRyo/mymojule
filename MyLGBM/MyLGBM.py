@@ -2,7 +2,6 @@ class MyLGBM:
     def __init__(self, train, test):
         self.train=train
         self.test=test
-        self.data=pd.concat([self.train, self.test])
 
     def devide_tr_ob(self):
         train_labels=list(self.train.columns)
@@ -33,12 +32,12 @@ class MyLGBM:
         train, test = devide_train_test(data, target)
         return labels, train, test
 
-    def LGBM_K_DataSet(train, feats, catfeats, target):
+    def LGBM_K_DataSet(self):
         from sklearn.model_selection import KFold
         folds = KFold(n_splits = 5 , random_state = 6, shuffle=True)
         KFoldDataSet=[]
-        X=train[feats]
-        y=train[target]
+        X=self.train[feats]
+        y=self.train[target]
         for train_id , valid_id in folds.split(X, y):
             DataSet=[X.iloc[train_id],y.iloc[train_id],X.iloc[valid_id],y.iloc[valid_id]]
             KFoldDataSet.append(DataSet)
@@ -50,7 +49,8 @@ class MyLGBM:
             LgbDataSet.append([train_data, valid_data])
         return LgbDataSet
 
-    def LGBM_train(LgbDataSet, catfeats):
+    def LGBM_train(train, test):
+        LgbDataSet=LGBM_K_DataSet(self.train, self.test)
         params = {
             'objective' : 'regression',
             'metric': 'rmse',
