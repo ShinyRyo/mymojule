@@ -18,7 +18,7 @@ class MyLGBM:
         test=self.data[self.data[target[0]].isna()]
         return train, test
     #全てのカテゴリカルデータをラベルエンコーディング
-    def MyLabelEncoding(self, train, test):
+    def MyLabelEncoding(train, test):
         from sklearn.preprocessing import LabelEncoder
         feats, catfeats, target = devide_tr_ob(self.train, self.test)
         data=pd.concat([self.train, self.test])
