@@ -3,7 +3,7 @@ class MyLGBM:
         self.train=train
         self.test=test
 
-    def devide_tr_ob(self):
+    def devide_tr_ob(self, train, test):
         train_labels=list(self.train.columns)
         test_labels=list(self.test.columns)
         target=train_labels
@@ -13,12 +13,12 @@ class MyLGBM:
             target.remove(i)
         return feats, catfeats, target
     #訓練データとテストデータの分割
-    def devide_train_test(self):
+    def devide_train_test(self, data):
         train=self.data[self.data[target[0]].notna()]
         test=self.data[self.data[target[0]].isna()]
         return train, test
     #全てのカテゴリカルデータをラベルエンコーディング
-    def MyLabelEncoding(self.train, self.test):
+    def MyLabelEncoding(self, train, test):
         from sklearn.preprocessing import LabelEncoder
         feats, catfeats, target = devide_tr_ob(self.train, self.test)
         data=pd.concat([self.train, self.test])
@@ -32,7 +32,7 @@ class MyLGBM:
         train, test = devide_train_test(data, target)
         return labels, train, test
 
-    def LGBM_K_DataSet(self):
+    def LGBM_K_DataSet(self, train, test):
         from sklearn.model_selection import KFold
         folds = KFold(n_splits = 5 , random_state = 6, shuffle=True)
         KFoldDataSet=[]
@@ -49,7 +49,7 @@ class MyLGBM:
             LgbDataSet.append([train_data, valid_data])
         return LgbDataSet
 
-    def LGBM_train(train, test):
+    def LGBM_train(self, train, test):
         LgbDataSet=LGBM_K_DataSet(self.train, self.test)
         params = {
             'objective' : 'regression',
