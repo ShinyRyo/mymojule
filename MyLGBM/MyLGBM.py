@@ -1,4 +1,3 @@
-import lightgbm as lgb
 class MyLGBM:
     def __init__(self, train, test):
         self.train=train
