@@ -51,6 +51,7 @@ class MyLGBM:
         return self.LgbDataSet
 
     def LGBM_train(self):
+        import lightgbm as lgb
         params = {
             'objective' : 'regression',
             'metric': 'rmse',
