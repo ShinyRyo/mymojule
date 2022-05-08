@@ -33,6 +33,7 @@ class MyLGBM:
         return self.labels, self.train, self.test
 
     def LGBM_K_DataSet(self):
+        import lightgbm as lgb
         from sklearn.model_selection import KFold
         folds = KFold(n_splits = 5 , random_state = 6, shuffle=True)
         KFoldDataSet=[]
