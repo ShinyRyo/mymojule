@@ -18,8 +18,7 @@ class MyLGBM:
 
     #全てのカテゴリカルデータをラベルエンコーディング
     def MyLabelEncoding(self):
-        from sklearn.preprocessing import LabelEncoder
-        import padnas as pd
+        #from sklearn.preprocessing import LabelEncoder
         #feats, catfeats, target = devide_tr_ob(self.train, self.test)
         data=pd.concat([self.train, self.test])
         le= LabelEncoder() #ラベルエンコーダーをインスタンス化して使えるようにする
