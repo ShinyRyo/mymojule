@@ -8,6 +8,7 @@ class MyLGBM:
         self.feats=0
         self.catfeats=0
         self.target=0
+        self.lgb_model=0
 
     def __call__(self):
         self.devide_tr_ob()
@@ -59,7 +60,7 @@ class MyLGBM:
         }
         #feats, catfeats, target=devide_tr_ob(self.train, self.test)
         for train_data,valid_data in self.LgbDataSet:
-                lgb_model = lgb.train(params ,
+                self.lgb_model = lgb.train(params ,
                                     train_data ,
                                     valid_sets=[train_data , valid_data] ,
                                     categorical_feature=self.catfeats,
@@ -71,7 +72,7 @@ class MyLGBM:
                 # print("save model")
                 # dic={i:lgb_model}
                 # lgb_models.update(dic)
-        return lgb_model
+        return self.lgb_model
     #説明変数と目的変数のリストを抽出
     def devide_tr_ob(self):
         train_labels=list(self.train.columns)
