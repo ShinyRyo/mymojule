@@ -2,61 +2,54 @@ class MyLGBM:
     def __init__(self, train, test):
         self.train=train
         self.test=test
+        self.labels={}
+        self.LgbDataSet=[]
 
-    def devide_tr_ob(self, train, test):
-        train_labels=list(self.train.columns)
-        test_labels=list(self.test.columns)
-        target=train_labels
-        feats=test_labels
-        catfeats=list(train.select_dtypes(include= "object").columns)
-        for i in test_labels:
-            target.remove(i)
-        return feats, catfeats, target
-    #訓練データとテストデータの分割
-    def devide_train_test(self, data):
-        train=self.data[self.data[target[0]].notna()]
-        test=self.data[self.data[target[0]].isna()]
-        return train, test
+    def __call__(self):
+        self.MyLabelEncoding()
+        self.LGBM_K_DataSet()
+        self.LGBM_train()
+
     #全てのカテゴリカルデータをラベルエンコーディング
-    def MyLabelEncoding(train, test):
+    def MyLabelEncoding(self):
         from sklearn.preprocessing import LabelEncoder
         feats, catfeats, target = devide_tr_ob(self.train, self.test)
         data=pd.concat([self.train, self.test])
         le= LabelEncoder() #ラベルエンコーダーをインスタンス化して使えるようにする
-        labels={}
+        self.labels={}
         for feat in catfeats: 
             le.fit(data[feat].astype(str))
             label={feat:list(le.classes_)}
-            labels.update(label)
+            self.labels.update(label)
             data[feat]=le.transform(data[feat].astype(str))
-        train, test = devide_train_test(data, target)
-        return labels, train, test
+        self.train, self.test = devide_train_test(data, feats, target)
+        return self.labels, self.train, self.test
 
-    def LGBM_K_DataSet(self, train, test):
+    def LGBM_K_DataSet(self):
         from sklearn.model_selection import KFold
         folds = KFold(n_splits = 5 , random_state = 6, shuffle=True)
         KFoldDataSet=[]
+        feats, catfeats, target=devide_tr_ob(self.train, self.test)
         X=self.train[feats]
         y=self.train[target]
         for train_id , valid_id in folds.split(X, y):
             DataSet=[X.iloc[train_id],y.iloc[train_id],X.iloc[valid_id],y.iloc[valid_id]]
             KFoldDataSet.append(DataSet)
-        import lightgbm as lgb
-        LgbDataSet=[]
+        self.LgbDataSet=[]
         for X_train,y_train,X_valid,y_valid in KFoldDataSet:
             train_data = lgb.Dataset(data = X_train, label = y_train, categorical_feature=catfeats,free_raw_data=False)
             valid_data = lgb.Dataset(data = X_valid, label = y_valid, categorical_feature=catfeats,free_raw_data=False)
-            LgbDataSet.append([train_data, valid_data])
-        return LgbDataSet
+            self.LgbDataSet.append([train_data, valid_data])
+        return self.LgbDataSet
 
-    def LGBM_train(self, train, test):
-        LgbDataSet=LGBM_K_DataSet(self.train, self.test)
+    def LGBM_train(self):
         params = {
             'objective' : 'regression',
             'metric': 'rmse',
             'random_state': 0,
         }
-        for train_data,valid_data in LgbDataSet:
+        feats, catfeats, target=devide_tr_ob(self.train, self.test)
+        for train_data,valid_data in self.LgbDataSet:
                 lgb_model = lgb.train(params ,
                                     train_data ,
                                     valid_sets=[train_data , valid_data] ,
