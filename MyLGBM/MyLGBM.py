@@ -59,6 +59,7 @@ class MyLGBM:
             'random_state': 0,
         }
         #feats, catfeats, target=devide_tr_ob(self.train, self.test)
+        self.lgb_model=0
         for train_data,valid_data in self.LgbDataSet:
                 self.lgb_model = lgb.train(params ,
                                     train_data ,
@@ -83,8 +84,3 @@ class MyLGBM:
         for i in test_labels:
             self.target.remove(i)
         return self.feats, self.catfeats, self.target
-    #訓練データとテストデータの分割
-    # def devide_train_test(self):
-    #     train=self.data[self.data[self.target[0]].notna()]
-    #     test=self.data[self.feats]
-    #     return self.train, self.test
