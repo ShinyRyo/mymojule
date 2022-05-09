@@ -1,6 +1,6 @@
 class MyLGBM:
     """
-    coments
+    カテゴリカルデータとして、objectとboolを指定しました。
     """
     def __init__(self, train, test):
         self.train=train
