@@ -60,6 +60,8 @@ class MyLGBM:
         }
         #feats, catfeats, target=devide_tr_ob(self.train, self.test)
         self.lgb_model=0
+        if self.target[0] in self.catfeats:
+            self.catfeats.remove(self.target[0])
         for train_data,valid_data in self.LgbDataSet:
                 self.lgb_model = lgb.train(params ,
                                     train_data ,
@@ -80,7 +82,7 @@ class MyLGBM:
         test_labels=list(self.test.columns)
         self.target=train_labels
         self.feats=test_labels
-        self.catfeats=list(self.train.select_dtypes(include= "object").columns)
+        self.catfeats=list(self.train.select_dtypes(include= ["object",bool]).columns)
         for i in test_labels:
             self.target.remove(i)
         return self.feats, self.catfeats, self.target
