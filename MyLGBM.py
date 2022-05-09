@@ -1,4 +1,7 @@
 class MyLGBM:
+"""
+カテゴリカルデータとしてobjectとboolを指定
+"""
     def __init__(self, train, test):
         self.train=train
         self.test=test
