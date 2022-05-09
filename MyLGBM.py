@@ -30,7 +30,7 @@ class MyLGBM:
             self.labels.update(label)
             data[feat]=le.transform(data[feat].astype(str))
         self.train=data[data[self.target[0]].notna()]
-        self.test=data[self.feats]
+        self.test=data[data[self.target[0]].isna()]
         return self.labels, self.train, self.test
 
     def LGBM_K_DataSet(self):
