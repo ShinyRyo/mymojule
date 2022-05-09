@@ -29,8 +29,8 @@ class MyLGBM:
             label={feat:list(le.classes_)}
             self.labels.update(label)
             data[feat]=le.transform(data[feat].astype(str))
-        self.train=data[:len(train)]
-        self.test=data[len(train):][self.feats]
+        self.train=data[:len(self.train)]
+        self.test=data[len(self.train):][self.feats]
         return self.labels, self.train, self.test
 
     def LGBM_K_DataSet(self):
