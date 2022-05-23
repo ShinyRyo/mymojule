@@ -28,18 +28,18 @@ class MyLGBM:
         for data in os.listdir(data_path):
             if "csv" in data:
                 if "train" in data:
-                    train=pd.read_csv(data_path+data)
+                    self.train=pd.read_csv(data_path+data)
                 elif "test" in data:
-                    test=pd.read_csv(data_path+data)
+                    self.test=pd.read_csv(data_path+data)
                 elif "submit" in data:
-                    sub=pd.read_csv(data_path+data, header=None)
+                    self.submit=pd.read_csv(data_path+data, header=None)
             elif "tsv" in data:
                 if "train" in data:
-                    train=pd.read_csv(data_path+data, sep='\t')
+                    self.train=pd.read_csv(data_path+data, sep='\t')
                 elif "test" in data:
-                    test=pd.read_csv(data_path+data, sep='\t')
+                    self.test=pd.read_csv(data_path+data, sep='\t')
                 elif "submit" in data:
-                    sub=pd.read_csv(data_path+data, sep='\t', header=None)
+                    self.submit=pd.read_csv(data_path+data, sep='\t', header=None)
         return self.train, self.test, self.submit
     #全てのカテゴリカルデータをラベルエンコーディング
     def MyLabelEncoding(self):
