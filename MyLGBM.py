@@ -2,8 +2,9 @@ class MyLGBM:
     """
     カテゴリカルデータとして、objectとboolを指定しました。
     """
-    def __init__(self,data_path):
+    def __init__(self,data_path, task):
         self.data_path=data_path
+        self.task=task
         self.train=0
         self.test=0
         self.submit=0
