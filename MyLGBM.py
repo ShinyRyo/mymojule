@@ -3,6 +3,7 @@ class MyLGBM:
     カテゴリカルデータとして、objectとboolを指定しました。
     """
     def __init__(self,data_path):
+        self.data_path=data_path
         self.train=0
         self.test=0
         self.submit=0
@@ -22,24 +23,24 @@ class MyLGBM:
         self.LGBM_train()
 
     #データを読み込む
-    def data_loader(self,data_path):
+    def data_loader(self):
         import os
         import pandas as pd
-        for data in os.listdir(data_path):
+        for data in os.listdir(self.data_path):
             if "csv" in data:
                 if "train" in data:
-                    self.train=pd.read_csv(data_path+data)
+                    self.train=pd.read_csv(self.data_path+data)
                 elif "test" in data:
-                    self.test=pd.read_csv(data_path+data)
+                    self.test=pd.read_csv(self.data_path+data)
                 elif "submit" in data:
-                    self.submit=pd.read_csv(data_path+data, header=None)
+                    self.submit=pd.read_csv(self.data_path+data, header=None)
             elif "tsv" in data:
                 if "train" in data:
-                    self.train=pd.read_csv(data_path+data, sep='\t')
+                    self.train=pd.read_csv(self.data_path+data, sep='\t')
                 elif "test" in data:
-                    self.test=pd.read_csv(data_path+data, sep='\t')
+                    self.test=pd.read_csv(self.data_path+data, sep='\t')
                 elif "submit" in data:
-                    self.submit=pd.read_csv(data_path+data, sep='\t', header=None)
+                    self.submit=pd.read_csv(self.data_path+data, sep='\t', header=None)
         return self.train, self.test, self.submit
     #全てのカテゴリカルデータをラベルエンコーディング
     def MyLabelEncoding(self):
