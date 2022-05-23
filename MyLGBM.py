@@ -2,6 +2,8 @@ class MyLGBM:
     """
     カテゴリカルデータとして、objectとboolを指定しました。
     """
+    import pandas as pd
+    
     def __init__(self,data_path):
         self.train=0
         self.test=0
