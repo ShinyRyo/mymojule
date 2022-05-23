@@ -2,9 +2,10 @@ class MyLGBM:
     """
     カテゴリカルデータとして、objectとboolを指定しました。
     """
-    def __init__(self, train, test):
-        self.train=train
-        self.test=test
+    def __init__(self,data_path):
+        self.train=0
+        self.test=0
+        self.submit=0
         self.labels={}
         self.LgbDataSet=[]
         self.data=0
@@ -14,11 +15,31 @@ class MyLGBM:
         self.lgb_model=0
 
     def __call__(self):
+        self.data_loader()
         self.devide_tr_ob()
         self.MyLabelEncoding()
         self.LGBM_K_DataSet()
         self.LGBM_train()
 
+    #データを読み込む
+    def data_loader(self,data_path):
+        import os
+        for data in os.listdir(data_path):
+            if "csv" in data:
+                if "train" in data:
+                    train=pd.read_csv(data_path+data)
+                elif "test" in data:
+                    test=pd.read_csv(data_path+data)
+                elif "submit" in data:
+                    sub=pd.read_csv(data_path+data, header=None)
+            elif "tsv" in data:
+                if "train" in data:
+                    train=pd.read_csv(data_path+data, sep='\t')
+                elif "test" in data:
+                    test=pd.read_csv(data_path+data, sep='\t')
+                elif "submit" in data:
+                    sub=pd.read_csv(data_path+data, sep='\t', header=None)
+        return self.train, self.test, self.submit
     #全てのカテゴリカルデータをラベルエンコーディング
     def MyLabelEncoding(self):
         from sklearn.preprocessing import LabelEncoder
