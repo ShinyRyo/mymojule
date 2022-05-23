@@ -79,11 +79,23 @@ class MyLGBM:
 
     def LGBM_train(self):
         import lightgbm as lgb
-        params = {
-            'objective' : 'regression',
-            'metric': 'rmse',
-            'random_state': 0,
-        }
+        import numpy as np
+
+        if self.task=='regression':
+            params = {
+                'objective' : 'regression',
+                'metric': 'rmse',
+                'random_state': 0,
+            }
+        elif self.task=='multiclass':
+            params = {
+                    'objective': 'multiclass',      # 目的関数：多値分類、マルチクラス分類
+                    'metric': 'multi_logloss',      # 分類モデルの性能を測る指標
+                    'num_class': self.train[self.target].nunique().values, # 目的変数のクラス数
+                    'learning_rate': 0.02,          # 学習率（初期値0.1）
+                    'num_leaves': 23,               # 決定木の複雑度を調整（初期値31）
+                    'min_data_in_leaf': 1,          # データの最小数（初期値20）
+                    }
         #feats, catfeats, target=devide_tr_ob(self.train, self.test)
         self.lgb_model=0
         if self.target[0] in self.catfeats:
