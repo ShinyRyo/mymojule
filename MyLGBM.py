@@ -53,7 +53,7 @@ class MyLGBM:
         self.labels={}
         for feat in self.catfeats: 
             le.fit(data[feat].astype(str))
-            label={feat:list(le.classes_)}
+            label={feat:{label:name for label, name in enumerate(list(le.classes_))}}
             self.labels.update(label)
             data[feat]=le.transform(data[feat].astype(str))
         self.train=data[:len(self.train)]
