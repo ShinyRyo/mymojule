@@ -82,6 +82,7 @@ class MyLGBM:
         import lightgbm as lgb
         import numpy as np
 
+        params=0
         if self.task=='regression':
             params = {
                 'objective' : 'regression',
