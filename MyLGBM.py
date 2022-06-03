@@ -103,9 +103,10 @@ class MyLGBM:
         if self.target[0] in self.catfeats:
             self.catfeats.remove(self.target[0])
         for train_data,valid_data in self.LgbDataSet:
-                self.lgb_model = lgb.train(params ,
-                                    train_data ,
-                                    valid_sets=[train_data , valid_data] ,
+                self.lgb_model = lgb.train(
+                                    params,
+                                    train_data,
+                                    valid_sets=[train_data, valid_data],
                                     categorical_feature=self.catfeats,
                                     verbose_eval=100,
                                     early_stopping_rounds=100,
