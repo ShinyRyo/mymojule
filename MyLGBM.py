@@ -87,7 +87,7 @@ class MyLGBM:
             params = {
                 'objective' : 'regression',
                 'metric': 'rmse',
-                'random_state': 0,
+                #'random_state': 0,
             }
         elif self.task=='multiclass':
             params = {
