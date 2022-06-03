@@ -87,7 +87,7 @@ class MyLGBM:
             params = {
                 'objective' : 'regression',
                 'metric': 'rmse',
-                #'random_state': 0,
+                'random_state': 0,
             }
         elif self.task=='multiclass':
             params = {
@@ -106,7 +106,7 @@ class MyLGBM:
                 self.lgb_model = lgb.train(
                                     params,
                                     train_data,
-                                    valid_sets=[train_data, valid_data],
+                                    valid_sets=[train_data , valid_data],
                                     categorical_feature=self.catfeats,
                                     verbose_eval=100,
                                     early_stopping_rounds=100,
