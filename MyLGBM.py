@@ -18,7 +18,7 @@ class MyLGBM:
 
     def __call__(self):
         self.data_loader()
-        self.devide_tr_ob()
+        #self.devide_tr_ob()
         self.MyLabelEncoding()
         self.LGBM_K_DataSet()
         self.LGBM_train()
@@ -50,6 +50,7 @@ class MyLGBM:
         import pandas as pd
         data=pd.concat([self.train, self.test])
         le= LabelEncoder() #ラベルエンコーダーをインスタンス化して使えるようにする
+        self.feats, self.catfeats, self.target = self.devide_tr_ob()
         self.labels={}
         for feat in self.catfeats: 
             le.fit(data[feat].astype(str))
