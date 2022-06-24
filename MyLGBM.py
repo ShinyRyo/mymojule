@@ -111,7 +111,8 @@ class MyLGBM:
                                     valid_sets=[train_data , valid_data],
                                     categorical_feature=self.catfeats,
                                     verbose_eval=100,
-                                    early_stopping_rounds=100,
+                                    #early_stopping_rounds=100,
+                                    callback=[lgb.early_stopping(stopping_rounds=100,verbose=True)],
                                     )
                 # file = f'model{i}.pkl'
                 # pickle.dump(lgb_model, open(model_path+file,'wb'))
