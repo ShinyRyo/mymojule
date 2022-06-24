@@ -90,6 +90,7 @@ class MyLGBM:
                 'objective' : 'regression',
                 'metric': 'rmse',
                 'random_state': 0,
+                'force_row_wise':True,
             }
         elif self.task=='multiclass':
             params = {
@@ -99,6 +100,7 @@ class MyLGBM:
                     'learning_rate': 0.02,          # 学習率（初期値0.1）
                     'num_leaves': 23,               # 決定木の複雑度を調整（初期値31）
                     'min_data_in_leaf': 1,          # データの最小数（初期値20）
+                    'force_row_wise':True,
                     }
         #feats, catfeats, target=devide_tr_ob(self.train, self.test)
         self.lgb_model=0
