@@ -92,6 +92,15 @@ class MyLGBM:
                 'random_state': 0,
                 'force_row_wise':True,
             }
+        elif self.task=='binary':
+            params = {
+                    'objective': 'binary',      # 目的関数：多値分類、マルチクラス分類
+                    'metric': 'multi_logloss',      # 分類モデルの性能を測る指標
+                    'learning_rate': 0.02,          # 学習率（初期値0.1）
+                    'num_leaves': 23,               # 決定木の複雑度を調整（初期値31）
+                    'min_data_in_leaf': 1,          # データの最小数（初期値20）
+                    'force_row_wise':True,
+                    }
         elif self.task=='multiclass':
             params = {
                     'objective': 'multiclass',      # 目的関数：多値分類、マルチクラス分類
