@@ -48,7 +48,7 @@ class MyLGBM:
         from sklearn.preprocessing import LabelEncoder
         #feats, catfeats, target = devide_tr_ob(self.train, self.test)
         import pandas as pd
-        self.train, self.test, self.submit = self.data_loader()
+        #self.train, self.test, self.submit = self.data_loader()
         data=pd.concat([self.train, self.test])
         le= LabelEncoder() #ラベルエンコーダーをインスタンス化して使えるようにする
         self.feats, self.catfeats, self.target = self.devide_tr_ob()
